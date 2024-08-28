@@ -1,0 +1,30 @@
+{ns     cair-aidbox
+ import #{fhir.topic-based-subscription #_hl7-fhir-r4b-core hl7-fhir-uv-subscriptions-backport-r4b}
+
+ claim-topic
+ {:zen/tags #{fhir.topic-based-subscription/topic-definition}
+  :url "http://aidbox.app/SubscriptionTopic/claim-topic"
+  :resourceTrigger [{:resource "Claim"}]}
+
+ postgres-claim-storage
+ {:zen/tags #{fhir.topic-based-subscription/topic-storage}
+  :storage-type fhir.topic-based-subscription/postgres
+  :timeout  10
+  :status-interval 0.5
+  :maxCount 2
+  :heartbeat-rate 120
+  :senders-number 2
+  :table-name "claim_topic"}
+
+ claim-topic-srv
+ {:zen/tags #{aidbox/service}
+  :engine fhir.topic-based-subscription/change-data-capture-service-engine
+  :topic-definition claim-topic
+  :topic-storage postgres-claim-storage}
+
+ box
+ {:zen/tags #{aidbox/system}
+  :zen/desc "box for topic test"
+  :services {:claim-topic-srv claim-topic-srv}}
+
+ }
