@@ -5,6 +5,21 @@
  {:zen/tags #{fhir.topic-based-subscription/topic-definition}
   :url "http://aidbox.app/SubscriptionTopic/claim-topic"
   :resourceTrigger [{:resource "Claim"}]}
+ 
+ claimResponse-topic
+ {:zen/tags #{fhir.topic-based-subscription/topic-definition}
+  :url "http://aidbox.app/SubscriptionTopic/claimResponse-topic"
+  :resourceTrigger [{:resource "ClaimResponse"}]}
+ 
+ postgres-claimResponse-storage
+ {:zen/tags #{fhir.topic-based-subscription/topic-storage}
+  :storage-type fhir.topic-based-subscription/postgres
+  :timeout  10
+  :status-interval 0.5
+  :maxCount 2
+  :heartbeat-rate 120
+  :senders-number 2
+  :table-name "claimResponse_topic"}
 
  postgres-claim-storage
  {:zen/tags #{fhir.topic-based-subscription/topic-storage}
@@ -21,6 +36,12 @@
   :engine fhir.topic-based-subscription/change-data-capture-service-engine
   :topic-definition claim-topic
   :topic-storage postgres-claim-storage}
+ 
+ claimResponse-topic-srv
+ {:zen/tags #{aidbox/service}
+  :engine fhir.topic-based-subscription/change-data-capture-service-engine
+  :topic-definition claimResponse-topic
+  :topic-storage postgres-claimResponse-storage}
 
  box
  {:zen/tags #{aidbox/system}
