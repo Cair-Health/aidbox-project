@@ -1,5 +1,5 @@
 {:ns cair-aidbox
- :import #{fhir.topic-based-subscription #_hl7-fhir-r4b-core hl7-fhir-uv-subscriptions-backport-r4b}
+ :import #{fhir.topic-based-subscription #_hl7-fhir-r5-core }
 
  claim-topic
  {:zen/tags #{fhir.topic-based-subscription/topic-definition}
