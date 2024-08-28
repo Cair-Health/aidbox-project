@@ -47,5 +47,5 @@
  {:zen/tags #{aidbox/system}
   :zen/desc "box for topic test"
   :services {:claim-topic-srv claim-topic-srv
-             :claimResponse-topic-src claimResponse-topic-srv}}
+             :claimResponse-topic-srv claimResponse-topic-srv}}
 }
